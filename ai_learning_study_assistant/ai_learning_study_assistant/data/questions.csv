@@ -1,0 +1,33 @@
+question_id,course_id,topic,question,option_a,option_b,option_c,option_d,correct_answer
+1,1,Variables and Data Types,Which of these is a valid variable name in Python?,2name,my-name,my_name,my name,C
+2,1,Variables and Data Types,What is the data type of the value 3.14?,int,float,str,bool,B
+3,1,Variables and Data Types,"What does type(""Hello"") return?",<class 'str'>,<class 'int'>,<class 'list'>,<class 'char'>,A
+4,1,Variables and Data Types,Which expression calculates 2 raised to the power 3?,2 * 3,2 ^ 3,2 // 3,2 ** 3,D
+5,1,Loops and Conditions,How many times does the body of 'for i in range(3):' run?,2 times,3 times,4 times,0 times,B
+6,1,Loops and Conditions,Which keyword stops a loop immediately?,stop,exit,break,continue,C
+7,1,Loops and Conditions,Which keyword means 'else if' in Python?,elif,elseif,else if,elsif,A
+8,1,Loops and Conditions,What is the output of print(10 % 3)?,3,0,3.33,1,D
+9,1,Functions,Which keyword is used to define a function?,function,func,def,define,C
+10,1,Functions,What does a function return if it has no return statement?,None,0,An empty string,False,A
+11,1,Functions,"In 'def add(a, b):', what are a and b called?",Modules,Parameters,Loops,Classes,B
+12,1,Functions,Which statement sends a value back to the caller?,send,give,output,return,D
+13,2,NumPy Basics,Which function creates a NumPy array from a list?,np.list(),np.array(),np.create(),np.vector(),B
+14,2,NumPy Basics,"What does np.mean([2, 4, 6]) return?",2.0,6.0,4.0,12.0,C
+15,2,NumPy Basics,"What is the shape of np.array([[1, 2, 3], [4, 5, 6]])?","(2, 3)","(3, 2)","(6,)","(1, 6)",A
+16,2,NumPy Basics,Which function creates an array filled with zeros?,np.empty_zero(),np.null(),np.none(),np.zeros(),D
+17,2,Pandas Basics,Which function reads a CSV file into a DataFrame?,pd.read_csv(),pd.open_csv(),pd.load(),pd.csv(),A
+18,2,Pandas Basics,Which method shows the first five rows of a DataFrame?,df.top(),df.first(),df.head(),df.start(),C
+19,2,Pandas Basics,Which expression gives the average of a column named score?,df.mean['score'],df['score'].mean(),"mean(df, 'score')",df.score.avg(),B
+20,2,Pandas Basics,Which method groups rows by the values of a column?,df.group(),df.collect(),df.cluster(),df.groupby(),D
+21,2,Data Visualization,Which Matplotlib function draws a line chart?,plt.bar(),plt.plot(),plt.pie(),plt.hist(),B
+22,2,Data Visualization,Which library is built on top of Matplotlib for statistical charts?,Seaborn,Flask,NumPy,Pandas,A
+23,2,Data Visualization,Which function saves a figure to an image file?,plt.save(),plt.export(),plt.savefig(),plt.write(),C
+24,2,Data Visualization,Which chart is best for showing how a score changes over time?,Pie chart,Word cloud,Treemap,Line chart,D
+25,3,HTML Basics,Which tag creates the largest heading?,<h6>,<h1>,<head>,<heading>,B
+26,3,HTML Basics,Which tag creates a hyperlink?,<a>,<link>,<href>,<url>,A
+27,3,HTML Basics,Which tag creates an unordered (bulleted) list?,<ol>,<li>,<ul>,<list>,C
+28,3,HTML Basics,Which tag displays an image?,<image>,<pic>,<src>,<img>,D
+29,3,CSS Basics,Which property changes the colour of text?,font-color,color,text-style,fg,B
+30,3,CSS Basics,Which symbol starts a class selector in CSS?,#,*,.,@,C
+31,3,CSS Basics,Which property adds space outside an element's border?,margin,padding,spacing,gap,A
+32,3,CSS Basics,What does 'display: flex;' turn on?,Animation,Hidden text,Image resizing,Flexible box layout,D

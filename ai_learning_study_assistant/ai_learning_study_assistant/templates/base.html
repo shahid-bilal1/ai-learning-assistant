@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}AI Learning &amp; Study Assistant{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  {# Shared page layout: every other page "extends" this file. #}
+  {% set page = request.endpoint %}
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark">AI</span>
+        <span>Learning &amp; Study Assistant</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="{{ url_for('index') }}" {% if page == 'index' %}class="active"{% endif %}>Home</a>
+        <a href="{{ url_for('courses') }}" {% if page == 'courses' %}class="active"{% endif %}>Courses</a>
+        <a href="{{ url_for('notes') }}" {% if page == 'notes' %}class="active"{% endif %}>Notes</a>
+        <a href="{{ url_for('quiz') }}" {% if page in ('quiz', 'result') %}class="active"{% endif %}>Quiz</a>
+        <a href="{{ url_for('my_results') }}" {% if page == 'my_results' %}class="active"{% endif %}>My Results</a>
+        <a href="{{ url_for('performance') }}" {% if page == 'performance' %}class="active"{% endif %}>Performance</a>
+        <a href="{{ url_for('dataset') }}" {% if page == 'dataset' %}class="active"{% endif %}>Dataset</a>
+        <a href="{{ url_for('assistant') }}" {% if page == 'assistant' %}class="active"{% endif %}>Study Assistant</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}
+      {% if not_found %}
+      <section class="page-head"><div class="container narrow">
+        <h1>Page not found</h1>
+        <p class="lead">That address does not exist. Use the menu above, or go back to the homepage.</p>
+        <a class="btn btn-primary" href="{{ url_for('index') }}">Go to homepage</a>
+      </div></section>
+      {% endif %}
+    {% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>AI Learning &amp; Study Assistant</strong> &ndash; courses, study notes, MCQ quizzes and performance analysis.</p>
+      <p class="muted">Study suggestions come from simple Python rules applied to your quiz results. They are not produced by a trained AI model.</p>
+    </div>
+  </footer>
+</body>
+</html>

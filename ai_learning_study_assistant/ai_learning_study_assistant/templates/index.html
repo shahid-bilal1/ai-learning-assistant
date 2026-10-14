@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <h1>Learn a topic, test yourself, then see what to study next.</h1>
+      <p class="lead">Read short course notes, take multiple-choice quizzes, and get a clear picture of your progress. Your results are saved in a CSV file and analysed with Python.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="{{ url_for('quiz') }}">Start a quiz</a>
+        <a class="btn btn-outline" href="{{ url_for('notes') }}">Read the notes</a>
+      </div>
+    </div>
+
+    <aside class="flow-card" aria-label="How the study cycle works">
+      <h2>One study cycle</h2>
+      <ol class="flow">
+        <li><strong>Read</strong><span>Study the notes for a topic.</span></li>
+        <li><strong>Practise</strong><span>Answer the topic's MCQs and submit.</span></li>
+        <li><strong>Review</strong><span>See your score and the answers you missed.</span></li>
+        <li><strong>Improve</strong><span>Follow the suggestion for your next step.</span></li>
+      </ol>
+    </aside>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">What you can do here</h2>
+    <div class="grid grid-3">
+      <a class="card link-card" href="{{ url_for('courses') }}"><h3>Courses</h3><p>Browse the available courses and the topics inside each one.</p></a>
+      <a class="card link-card" href="{{ url_for('notes') }}"><h3>Study notes</h3><p>Short notes and code examples, organised by course and topic.</p></a>
+      <a class="card link-card" href="{{ url_for('quiz') }}"><h3>MCQ quizzes</h3><p>Pick a course and topic, answer the questions, then submit for your score.</p></a>
+      <a class="card link-card" href="{{ url_for('my_results') }}"><h3>My results</h3><p>Look up every quiz saved for your student ID.</p></a>
+      <a class="card link-card" href="{{ url_for('performance') }}"><h3>Performance analysis</h3><p>Averages, highest and lowest scores, and charts built from the CSV data.</p></a>
+      <a class="card link-card" href="{{ url_for('assistant') }}"><h3>Study assistant</h3><p>Python rules turn your latest scores into practical next steps.</p></a>
+    </div>
+    <p class="muted center-text">The <a href="{{ url_for('dataset') }}">CSV dataset</a> behind the project can be viewed as readable tables.</p>
+  </div>
+</section>
+
+<section class="section section-tint" id="team">
+  <div class="container">
+    <h2 class="section-title">Meet the team</h2>
+    <div class="grid grid-3">
+      {% for member in team %}
+      <article class="card team-card">
+        <div class="avatar" aria-hidden="true">{{ member.name[0] }}</div>
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.intro }}</p>
+        <a class="btn btn-primary" href="{{ url_for(member.page) }}">View Portfolio</a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

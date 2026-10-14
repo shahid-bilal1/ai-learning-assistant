@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Dataset | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>CSV dataset</h1>
+    <p class="lead">The project stores all of its data in four CSV files inside the <code>data</code> folder. They are shown here exactly as saved.</p>
+    <div class="chip-row">
+      {% for t in tables %}<a class="chip" href="#{{ t.name|replace('.', '-') }}">{{ t.name }}</a>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% for t in tables %}
+    <div class="dataset-block" id="{{ t.name|replace('.', '-') }}">
+      <h2 class="section-title left">{{ t.name }}
+        {% if t.is_sample %}<span class="badge badge-sample">Sample data</span>{% endif %}</h2>
+      <p class="muted">{{ t.description }} ({{ t.rows|length }} row{{ '' if t.rows|length == 1 else 's' }})</p>
+      {% if t.rows %}
+      <div class="table-wrap"><table class="data-table">
+        <thead><tr>{% for col in t.columns %}<th>{{ col }}</th>{% endfor %}</tr></thead>
+        <tbody>{% for row in t.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+      </table></div>
+      {% else %}
+      <div class="empty-state small"><p>This file has no records yet.
+        {% if t.name == 'quiz_results.csv' %}Submit a quiz and a new row will be added.{% endif %}</p></div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

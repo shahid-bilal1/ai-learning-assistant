@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Study Notes | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Study notes</h1>
+    <p class="lead">Short notes for every topic, grouped by course. Read a topic, then practise it with the quiz.</p>
+    {% if notes %}
+    <div class="chip-row" aria-label="Jump to a course">
+      {% for item in notes %}
+      <a class="chip" href="#course-{{ item.course.course_id }}">{{ item.course.course_name }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-wide">
+    {% for item in notes %}
+    <div class="notes-course" id="course-{{ item.course.course_id }}">
+      <h2 class="section-title left">{{ item.course.course_name }}</h2>
+      {% for entry in item.topics %}
+      <article class="card note-card" id="{{ entry.anchor }}">
+        <h3>{{ entry.topic }}</h3>
+        {% if entry.points %}
+        <ul class="note-points">
+          {% for point in entry.points %}<li>{{ point }}</li>{% endfor %}
+        </ul>
+        {% if entry.example %}
+        <p class="small-heading">Example</p>
+        <pre class="code"><code>{{ entry.example }}</code></pre>
+        {% endif %}
+        {% else %}
+        <p class="muted">Notes for this topic have not been written yet.</p>
+        {% endif %}
+        <a class="btn btn-outline btn-small" href="{{ url_for('quiz', course_id=item.course.course_id) }}">Practise this course</a>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <h2>No notes yet</h2>
+      <p>Add courses to <code>data/courses.csv</code> to see notes here.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

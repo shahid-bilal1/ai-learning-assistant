@@ -1,0 +1,356 @@
+/* ==========================================================================
+   AI Learning & Study Assistant - style.css
+   Cream-white and blue theme. HTML + CSS only (no JavaScript).
+   ========================================================================== */
+
+/* ---------- 1. Theme colours and basic settings ---------- */
+:root {
+  --cream: #FFFDF5;
+  --white: #FFFFFF;
+  --blue: #2563EB;
+  --dark-blue: #17345C;
+  --light-blue: #EAF2FF;
+
+  --blue-hover: #1D4FC4;
+  --border: #D6E2F5;
+  --text: #17345C;
+  --text-soft: #4F6585;
+  --good: #0F7B4F;   --good-bg: #E3F6EC;
+  --warn: #8A5A00;   --warn-bg: #FFF1D2;
+  --bad: #A32727;    --bad-bg: #FDE7E7;
+
+  --radius: 16px;
+  --radius-small: 10px;
+  --shadow: 0 2px 6px rgba(23, 52, 92, 0.06), 0 8px 24px rgba(23, 52, 92, 0.07);
+  --shadow-hover: 0 4px 10px rgba(23, 52, 92, 0.08), 0 14px 32px rgba(23, 52, 92, 0.12);
+
+  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-head: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-code: Consolas, "SFMono-Regular", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--cream);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; margin: 0 0 0.6rem; color: var(--dark-blue); }
+h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); }
+h2 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+h3 { font-size: 1.2rem; }
+p  { margin: 0 0 1rem; }
+a  { color: var(--blue); }
+a:hover { color: var(--blue-hover); }
+img { max-width: 100%; height: auto; display: block; }
+code { font-family: var(--font-code); font-size: 0.92em; background: var(--light-blue); padding: 0.1em 0.4em; border-radius: 6px; }
+
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.container     { width: min(1120px, 92%); margin: 0 auto; }
+.narrow        { width: min(640px, 92%); margin: 0 auto; }
+.narrow-wide   { width: min(860px, 92%); margin: 0 auto; }
+.muted         { color: var(--text-soft); font-size: 0.95rem; }
+.center-text   { text-align: center; }
+.lead          { font-size: 1.15rem; color: var(--text-soft); max-width: 62ch; }
+
+/* ---------- 2. Header and navigation ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(23, 52, 92, 0.05);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem 0; }
+
+.brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--dark-blue); font-weight: 700; }
+.brand-mark {
+  display: grid; place-items: center; width: 38px; height: 38px;
+  background: var(--blue); color: var(--white); border-radius: 10px;
+  font-size: 0.95rem; font-weight: 800; letter-spacing: 0.5px;
+}
+
+.main-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem; }
+.main-nav a {
+  text-decoration: none; color: var(--dark-blue); font-weight: 600; font-size: 0.93rem;
+  padding: 0.45rem 0.8rem; border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.main-nav a:hover { background: var(--light-blue); }
+.main-nav a.active { background: var(--blue); color: var(--white); }
+
+/* ---------- 3. Buttons ---------- */
+.btn {
+  display: inline-block; cursor: pointer;
+  font: inherit; font-weight: 700; text-decoration: none; text-align: center;
+  padding: 0.75rem 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: var(--blue); color: var(--white); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28); }
+.btn-primary:hover { background: var(--blue-hover); color: var(--white); box-shadow: 0 8px 18px rgba(37, 99, 235, 0.34); }
+.btn-outline { background: var(--white); color: var(--blue); border-color: var(--blue); }
+.btn-outline:hover { background: var(--light-blue); color: var(--blue-hover); }
+.btn-small { padding: 0.45rem 1rem; font-size: 0.9rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.2rem; }
+.btn-row.center { justify-content: center; margin-top: 2rem; }
+
+/* ---------- 4. Hero (homepage) ---------- */
+.hero { background: var(--white); border-bottom: 1px solid var(--border); padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem; align-items: center; }
+.hero-copy h1 { max-width: 16ch; }
+
+/* One page-load moment: the hero content and the study-cycle card rise into place. */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.hero-copy > * { animation: rise 0.7s ease both; }
+.hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+.hero-copy > *:nth-child(3) { animation-delay: 0.24s; }
+.flow-card { animation: rise 0.8s ease 0.3s both; }
+
+.flow-card {
+  background: var(--light-blue); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.6rem 1.7rem; box-shadow: var(--shadow);
+}
+.flow-card h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+.flow { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.flow li {
+  counter-increment: step; position: relative;
+  padding: 0.2rem 0 1.1rem 3rem; display: flex; flex-direction: column;
+}
+.flow li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 2.1rem; height: 2.1rem; display: grid; place-items: center;
+  background: var(--blue); color: var(--white); border-radius: 50%; font-weight: 700;
+}
+.flow li:not(:last-child)::after {
+  content: ""; position: absolute; left: 1.02rem; top: 2.2rem; bottom: 0.1rem; width: 2px; background: var(--border);
+}
+.flow li:last-child { padding-bottom: 0; }
+.flow strong { color: var(--dark-blue); }
+.flow span { color: var(--text-soft); font-size: 0.95rem; }
+
+/* ---------- 5. Page sections ---------- */
+.page-head { background: var(--white); border-bottom: 1px solid var(--border); padding: 2.4rem 0 2rem; }
+.page-head h1 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); }
+.page-head .lead { margin-bottom: 0.5rem; }
+
+.section { padding: 3rem 0; }
+.section-tint { background: var(--light-blue); border-top: 1px solid var(--border); }
+.section-title { text-align: center; margin-bottom: 1.6rem; }
+.section-title.left { text-align: left; margin-top: 2.4rem; }
+.small-heading { font-family: var(--font-body); font-size: 0.95rem; font-weight: 700; color: var(--text-soft); margin: 1rem 0 0.4rem; }
+
+/* ---------- 6. Cards and grids ---------- */
+.grid { display: grid; gap: 1.4rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem;
+}
+.card p:last-child { margin-bottom: 0; }
+
+.link-card { display: block; text-decoration: none; color: var(--text); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.link-card p { color: var(--text-soft); }
+.link-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--blue); color: var(--text); }
+.link-card h3 { color: var(--blue); }
+
+/* team cards */
+.team-card { text-align: center; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.team-card p { color: var(--text-soft); flex: 1; }
+.avatar {
+  width: 76px; height: 76px; border-radius: 50%; margin-bottom: 1rem;
+  display: grid; place-items: center; background: var(--blue); color: var(--white);
+  font-family: var(--font-head); font-size: 2rem; font-weight: 700; border: 4px solid var(--light-blue);
+}
+.avatar-large { width: 104px; height: 104px; font-size: 2.8rem; margin: 0; flex-shrink: 0; }
+
+/* courses */
+.course-card { display: flex; flex-direction: column; }
+.course-card .btn-row { margin-top: auto; padding-top: 1.2rem; }
+.topic-list { margin: 0; padding-left: 1.2rem; }
+.topic-list li { margin-bottom: 0.25rem; }
+.topic-list.plain { padding-left: 1.2rem; }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.chip {
+  display: inline-block; padding: 0.35rem 0.9rem; border-radius: 999px; text-decoration: none;
+  background: var(--light-blue); color: var(--dark-blue); border: 1px solid var(--border); font-size: 0.92rem; font-weight: 600;
+}
+a.chip:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+/* notes */
+.note-card { margin-bottom: 1.4rem; }
+.note-points { margin: 0 0 0.6rem; padding-left: 1.2rem; }
+.note-points li { margin-bottom: 0.45rem; }
+.code {
+  margin: 0 0 1rem; padding: 1rem 1.2rem; overflow-x: auto;
+  background: var(--dark-blue); color: #EAF2FF; border-radius: var(--radius-small);
+  font-family: var(--font-code); font-size: 0.9rem; line-height: 1.55;
+}
+.code code { background: none; padding: 0; color: inherit; }
+
+/* ---------- 7. Alerts and empty states ---------- */
+.alert { padding: 1rem 1.2rem; border-radius: var(--radius-small); margin: 1.2rem 0; border: 1px solid; }
+.alert ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+.alert-error { background: var(--bad-bg); border-color: #F3B7B7; color: var(--bad); }
+.alert-info  { background: var(--light-blue); border-color: var(--border); color: var(--dark-blue); }
+
+.empty-state {
+  background: var(--white); border: 2px dashed var(--border); border-radius: var(--radius);
+  padding: 2.2rem 1.5rem; text-align: center; margin: 1.5rem 0;
+}
+.empty-state.small { padding: 1.2rem; }
+.empty-state p { color: var(--text-soft); }
+
+/* ---------- 8. Forms ---------- */
+.form-card { display: grid; gap: 1.2rem; }
+.inline-form { grid-template-columns: 1fr auto; align-items: end; }
+.field { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 600; }
+.field small { font-weight: 400; color: var(--text-soft); }
+input[type="text"], select {
+  font: inherit; color: var(--text); background: var(--cream);
+  padding: 0.7rem 0.9rem; border: 2px solid var(--border); border-radius: var(--radius-small);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="text"]:focus, select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15); }
+
+/* Radio buttons shown as clickable cards (CSS only). The real input stays in the page for keyboards. */
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.choice-group legend { font-weight: 600; margin-bottom: 0.6rem; padding: 0; }
+.choice input, .option input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none;
+}
+.choice label, .option label {
+  display: flex; align-items: center; gap: 0.8rem; cursor: pointer;
+  padding: 0.8rem 1rem; border: 2px solid var(--border); border-radius: var(--radius-small);
+  background: var(--cream); transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.choice, .option { position: relative; margin-bottom: 0.6rem; }
+.choice label:hover, .option label:hover { border-color: var(--blue); background: var(--light-blue); }
+.choice input:checked + label, .option input:checked + label { border-color: var(--blue); background: var(--light-blue); box-shadow: inset 4px 0 0 var(--blue); }
+.choice input:focus-visible + label, .option input:focus-visible + label { outline: 3px solid var(--blue); outline-offset: 2px; }
+.option-letter {
+  flex-shrink: 0; width: 2rem; height: 2rem; display: grid; place-items: center;
+  border-radius: 50%; background: var(--white); border: 2px solid var(--border); font-weight: 700; color: var(--blue);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.option input:checked + label .option-letter { background: var(--blue); border-color: var(--blue); color: var(--white); }
+
+/* ---------- 9. Quiz page ---------- */
+.quiz-info {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-bottom: 1.4rem; padding: 0.9rem 1.2rem;
+  background: var(--light-blue); border: 1px solid var(--border); border-radius: var(--radius-small); font-size: 0.95rem;
+}
+.question-card { margin-bottom: 1.2rem; }
+.question-card legend { padding: 0; float: left; width: 100%; }
+.q-number { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--blue); margin-bottom: 0.3rem; }
+.q-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; clear: both; }
+.submit-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+.submit-bar p { margin: 0; }
+
+/* ---------- 10. Result page ---------- */
+.score-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem; }
+.score-number { font-family: var(--font-head); font-size: clamp(3rem, 8vw, 4.6rem); font-weight: 700; color: var(--blue); line-height: 1; }
+.score-number span { font-size: 0.45em; color: var(--text-soft); }
+.score-main p { margin: 0.4rem 0 0; }
+.score-side { flex: 1; min-width: 220px; }
+.score-percent { font-family: var(--font-head); font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+.meter { height: 14px; background: var(--light-blue); border-radius: 999px; overflow: hidden; margin-bottom: 0.9rem; }
+@keyframes fill { from { width: 0; } to { width: var(--pct); } }
+.meter-fill { height: 100%; width: var(--pct); background: var(--blue); border-radius: 999px; animation: fill 1s ease-out both; }
+
+.badge { display: inline-block; padding: 0.2rem 0.75rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700; white-space: nowrap; }
+.badge-strong     { background: var(--good-bg); color: var(--good); }
+.badge-developing { background: var(--warn-bg); color: var(--warn); }
+.badge-practice   { background: var(--bad-bg);  color: var(--bad); }
+.badge-sample     { background: var(--warn-bg); color: var(--warn); font-family: var(--font-body); font-size: 0.8rem; vertical-align: middle; margin-left: 0.4rem; }
+
+.advice-card { margin: 1.2rem 0; border-left: 5px solid var(--blue); }
+.review-card { margin-bottom: 0.9rem; border-left: 5px solid var(--border); }
+.review-card.is-correct { border-left-color: #2E9E6B; }
+.review-card.is-wrong   { border-left-color: #D64545; }
+.review-card .q-text { font-size: 1rem; margin-bottom: 0.6rem; }
+.review-card p { margin-bottom: 0.4rem; }
+
+/* ---------- 11. Statistics, tables, charts ---------- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 1.6rem 0; }
+.stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem; display: flex; flex-direction: column; }
+.stat-value { font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; color: var(--blue); line-height: 1.1; }
+.stat-label { color: var(--text-soft); font-size: 0.92rem; }
+.big-line { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+
+.table-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+.data-table th { background: var(--dark-blue); color: var(--white); text-align: left; padding: 0.75rem 1rem; white-space: nowrap; position: sticky; top: 0; }
+.data-table td { padding: 0.65rem 1rem; border-top: 1px solid var(--border); vertical-align: top; }
+.data-table tbody tr:nth-child(even) { background: var(--cream); }
+.data-table tbody tr:hover { background: var(--light-blue); }
+.dataset-block .table-wrap { max-height: 480px; overflow-y: auto; }
+
+.chart { margin: 0; padding: 1rem; }
+.chart img { width: 100%; border-radius: var(--radius-small); animation: rise 0.6s ease both; }
+.chart figcaption { text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-top: 0.6rem; }
+
+/* ---------- 12. Study assistant ---------- */
+.suggestion { margin-bottom: 1rem; }
+.suggestion-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.suggestion-head h3 { margin: 0; }
+.course-tag { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; display: block; }
+.rules-card { margin-top: 2.5rem; background: var(--light-blue); }
+.rules { list-style: none; margin: 0; padding: 0; }
+.rules li { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; padding: 0.7rem 0; border-top: 1px solid var(--border); }
+.rules li:first-child { border-top: 0; }
+.rules strong { min-width: 11rem; }
+
+/* ---------- 13. Portfolio pages ---------- */
+.portfolio-head { display: flex; align-items: center; gap: 1.6rem; }
+.portfolio-head h1 { margin-bottom: 0.3rem; }
+.portfolio-card { margin-bottom: 1.4rem; }
+
+/* ---------- 14. Footer ---------- */
+.site-footer { background: var(--dark-blue); color: #D5E2F7; padding: 2rem 0; margin-top: auto; text-align: center; font-size: 0.95rem; }
+.site-footer p { margin: 0 0 0.4rem; }
+.site-footer .muted { color: #9FB4D6; }
+.site-footer strong { color: var(--white); }
+
+/* ---------- 15. Tablet and mobile ---------- */
+@media (max-width: 960px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-copy h1 { max-width: none; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .main-nav { justify-content: flex-start; }
+}
+@media (max-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .inline-form { grid-template-columns: 1fr; }
+  .section { padding: 2rem 0; }
+  .card { padding: 1.2rem; }
+  .score-card { padding: 1.4rem; }
+  .portfolio-head { flex-direction: column; align-items: flex-start; }
+  .rules strong { min-width: 0; width: 100%; }
+  .btn-row .btn { flex: 1 1 100%; }
+  .submit-bar .btn { width: 100%; }
+}
+
+/* ---------- 16. Respect "reduce motion" settings ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

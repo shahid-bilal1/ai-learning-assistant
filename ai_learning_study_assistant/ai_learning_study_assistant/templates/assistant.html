@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Study Assistant | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Study assistant</h1>
+    <p class="lead">Enter your student ID to get study suggestions based on your own quiz results.</p>
+    <p class="muted">This is Python-based, rule-based study support. It applies simple rules to your percentages and does not use a trained AI or machine-learning model.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-wide">
+    <form class="card form-card inline-form" action="{{ url_for('assistant') }}" method="get">
+      <label class="field">
+        <span>Student ID</span>
+        <input type="text" name="student_id" value="{{ student_id }}" maxlength="15" placeholder="For example S101" required>
+      </label>
+      <button class="btn btn-primary" type="submit">Get suggestions</button>
+    </form>
+
+    {% if error %}<div class="alert alert-error" role="alert">{{ error }}</div>{% endif %}
+
+    {% if searched %}
+      {% if plan.topics %}
+      <div class="alert alert-info"><strong>Summary for {{ student_id }}:</strong> {{ plan.overall }}</div>
+
+      <h2 class="section-title left">Suggestions by topic</h2>
+      <p class="muted">Based on your latest attempt in each topic. Weakest topics come first.</p>
+      {% for item in plan.topics %}
+      <div class="card suggestion">
+        <div class="suggestion-head">
+          <h3>{{ item.topic }} <span class="muted course-tag">{{ item.course_name }}</span></h3>
+          <span class="badge badge-{{ 'strong' if item.level == 'Strong' else ('developing' if item.level == 'Developing' else 'practice') }}">{{ item.level }} &middot; {{ item.latest_percentage }}%</span>
+        </div>
+        <p>{{ item.advice }}</p>
+        <p class="muted">{{ item.attempts }} attempt{{ '' if item.attempts == 1 else 's' }} &middot; best {{ item.best_percentage }}% &middot; {{ item.progress }}</p>
+        <div class="btn-row">
+          <a class="btn btn-outline btn-small" href="{{ url_for('notes') }}#{{ make_anchor(item.course_name, item.topic) }}">Open notes</a>
+          <a class="btn btn-outline btn-small" href="{{ url_for('quiz') }}">Practise again</a>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if plan.not_tried %}
+      <h2 class="section-title left">Not attempted yet</h2>
+      <ul class="topic-list plain">
+        {% for item in plan.not_tried %}<li>{{ item.topic }} <span class="muted">({{ item.course_name }})</span></li>{% endfor %}
+      </ul>
+      {% endif %}
+
+      {% else %}
+      <div class="empty-state">
+        <h2>No results for {{ student_id }}</h2>
+        <p>{{ plan.overall }}</p>
+        <a class="btn btn-primary" href="{{ url_for('quiz') }}">Take a quiz</a>
+      </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="card rules-card">
+      <h2>The rules used</h2>
+      <ul class="rules">
+        <li><strong>Below 50%</strong><span>Review the notes and practise the same topic again.</span></li>
+        <li><strong>50% to below 75%</strong><span>Review the incorrect answers and attempt more practice questions.</span></li>
+        <li><strong>75% or above</strong><span>Move on to the next topic or try another quiz.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

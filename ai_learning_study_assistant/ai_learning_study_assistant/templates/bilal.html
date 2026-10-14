@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Bilal | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+{# EDIT THIS PAGE: replace the text below with Bilal's real introduction, skills and contribution. #}
+<section class="page-head">
+  <div class="container portfolio-head">
+    <div class="avatar avatar-large" aria-hidden="true">B</div>
+    <div>
+      <h1>Bilal</h1>
+      <p class="lead">Team member, AI Learning &amp; Study Assistant</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-wide">
+    <div class="card portfolio-card">
+      <h2>About</h2>
+      <p>Bilal is part of the three-person team behind the AI Learning &amp; Study Assistant, a Flask web application for learning with courses, notes and quizzes.</p>
+    </div>
+
+    <div class="card portfolio-card">
+      <h2>Contribution to this project</h2>
+      <p>Bilal worked with the team on how quiz results are stored in CSV files and turned into clear performance reports.</p>
+    </div>
+
+    <div class="card portfolio-card">
+      <h2>Technologies used in this project</h2>
+      <div class="chip-row">
+        <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">NumPy</span>
+        <span class="chip">Pandas</span><span class="chip">Matplotlib</span><span class="chip">Seaborn</span>
+        <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">CSV files</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-outline" href="{{ url_for('index') }}#team">Back to the team</a>
+      <a class="btn btn-primary" href="{{ url_for('quiz') }}">Try the quiz</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

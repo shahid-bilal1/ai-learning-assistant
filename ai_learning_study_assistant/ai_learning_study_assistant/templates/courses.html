@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Courses | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Courses</h1>
+    <p class="lead">Choose a course, read the notes for its topics, then take a quiz on any topic.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if courses %}
+    <div class="grid grid-3">
+      {% for course in courses %}
+      <article class="card course-card">
+        <h2>{{ course.course_name }}</h2>
+        <p>{{ course.description }}</p>
+        <h3 class="small-heading">Topics ({{ course.topics|length }})</h3>
+        <ul class="topic-list">
+          {% for topic in course.topics %}
+          <li><a href="{{ url_for('notes') }}#{{ make_anchor(course.course_name, topic) }}">{{ topic }}</a></li>
+          {% endfor %}
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="{{ url_for('quiz', course_id=course.course_id) }}">Take a quiz</a>
+          <a class="btn btn-outline" href="{{ url_for('notes') }}#course-{{ course.course_id }}">Study notes</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <h2>No courses found</h2>
+      <p>Add rows to <code>data/courses.csv</code> and reload this page.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

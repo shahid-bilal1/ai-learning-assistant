@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}My Results | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>My results</h1>
+    <p class="lead">Enter your student ID to see every quiz you have submitted.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-wide">
+    <form class="card form-card inline-form" action="{{ url_for('my_results') }}" method="get">
+      <label class="field">
+        <span>Student ID</span>
+        <input type="text" name="student_id" value="{{ student_id }}" maxlength="15" placeholder="For example S101" required>
+      </label>
+      <button class="btn btn-primary" type="submit">Show results</button>
+    </form>
+
+    {% if error %}
+    <div class="alert alert-error" role="alert">{{ error }}</div>
+    {% endif %}
+
+    {% if searched %}
+      {% if rows %}
+      <div class="stat-grid">
+        <div class="stat"><span class="stat-value">{{ summary.attempts }}</span><span class="stat-label">Attempts</span></div>
+        <div class="stat"><span class="stat-value">{{ summary.average_percentage }}%</span><span class="stat-label">Average</span></div>
+        <div class="stat"><span class="stat-value">{{ summary.best_percentage }}%</span><span class="stat-label">Best</span></div>
+        <div class="stat"><span class="stat-value">{{ summary.lowest_percentage }}%</span><span class="stat-label">Lowest</span></div>
+      </div>
+      <h2 class="section-title left">Results for {{ rows[0].student_name }} ({{ student_id }})</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Date</th><th>Course</th><th>Topic</th><th>Score</th><th>Percentage</th></tr></thead>
+          <tbody>
+            {% for r in rows %}
+            <tr>
+              <td>{{ r.quiz_date.strftime('%Y-%m-%d %H:%M') if r.quiz_date == r.quiz_date else '' }}</td>
+              <td>{{ r.course_name }}</td>
+              <td>{{ r.topic }}</td>
+              <td>{{ r.score|int }} / {{ r.total_questions|int }}</td>
+              <td>{{ r.percentage }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-outline" href="{{ url_for('assistant', student_id=student_id) }}">Get study suggestions</a>
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <h2>No results for {{ student_id }}</h2>
+        <p>Check the ID, or take a quiz first. Results appear here as soon as a quiz is submitted.</p>
+        <a class="btn btn-primary" href="{{ url_for('quiz') }}">Take a quiz</a>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

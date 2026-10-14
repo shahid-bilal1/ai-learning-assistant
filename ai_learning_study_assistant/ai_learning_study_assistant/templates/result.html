@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Quiz Result | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Quiz result</h1>
+    <p class="lead">{{ saved.student_name }} ({{ saved.student_id }}) &middot; {{ course.course_name }} &middot; {{ saved.topic }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow-wide">
+
+    <div class="card score-card">
+      <div class="score-main">
+        <div class="score-number">{{ saved.score }}<span> / {{ saved.total }}</span></div>
+        <p class="muted">Score (total marks: {{ saved.total }})</p>
+      </div>
+      <div class="score-side">
+        <p class="score-percent">{{ saved.percentage }}%</p>
+        <div class="meter" role="img" aria-label="{{ saved.percentage }} percent">
+          <div class="meter-fill" style="--pct: {{ saved.percentage }}%"></div>
+        </div>
+        <span class="badge badge-{{ 'strong' if level == 'Strong' else ('developing' if level == 'Developing' else 'practice') }}">{{ level }}</span>
+      </div>
+    </div>
+
+    <div class="alert alert-info"><strong>Feedback:</strong> {{ feedback }}</div>
+    <p class="muted center-text">This result has been saved to <code>data/quiz_results.csv</code>.</p>
+
+    {% if topic_advice %}
+    <div class="card advice-card">
+      <h2>Your next step</h2>
+      <p>{{ topic_advice.advice }}</p>
+      <p class="muted">{{ topic_advice.progress }} Python-based, rule-based study support.</p>
+      <a class="btn btn-outline btn-small" href="{{ url_for('notes') }}#{{ make_anchor(course.course_name, saved.topic) }}">Open notes for this topic</a>
+    </div>
+    {% endif %}
+
+    <h2 class="section-title left">Answer review</h2>
+    {% for item in review %}
+    <div class="card review-card {{ 'is-correct' if item.is_correct else 'is-wrong' }}">
+      <p class="q-text"><strong>{{ loop.index }}.</strong> {{ item.question }}</p>
+      <p>Your answer: <strong>{{ item.chosen }}. {{ item.chosen_text }}</strong>
+        <span class="badge {{ 'badge-strong' if item.is_correct else 'badge-practice' }}">{{ 'Correct' if item.is_correct else 'Incorrect' }}</span></p>
+      {% if not item.is_correct %}
+      <p>Correct answer: <strong>{{ item.correct }}. {{ item.correct_text }}</strong></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="btn-row center">
+      <a class="btn btn-primary" href="{{ url_for('quiz', course_id=saved.course_id) }}">Take another quiz</a>
+      <a class="btn btn-outline" href="{{ url_for('my_results', student_id=saved.student_id) }}">My results</a>
+      <a class="btn btn-outline" href="{{ url_for('performance') }}">Performance</a>
+      <a class="btn btn-outline" href="{{ url_for('assistant', student_id=saved.student_id) }}">Study suggestions</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

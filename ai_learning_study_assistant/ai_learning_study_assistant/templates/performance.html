@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Performance | AI Learning &amp; Study Assistant{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Student performance</h1>
+    <p class="lead">Everything on this page is calculated from the submitted quizzes in <code>data/quiz_results.csv</code>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    {% if summary.attempts == 0 %}
+    <div class="empty-state">
+      <h2>No quiz results yet</h2>
+      <p>Charts and statistics appear after the first quiz is submitted.</p>
+      <a class="btn btn-primary" href="{{ url_for('quiz') }}">Take a quiz</a>
+    </div>
+
+    {% else %}
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-value">{{ summary.attempts }}</span><span class="stat-label">Total attempts</span></div>
+      <div class="stat"><span class="stat-value">{{ summary.average_score }}</span><span class="stat-label">Average score</span></div>
+      <div class="stat"><span class="stat-value">{{ summary.average_percentage }}%</span><span class="stat-label">Average percentage</span></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3 class="small-heading">Highest score</h3>
+        <p class="big-line">{{ summary.highest.score }} / {{ summary.highest.total }} ({{ summary.highest.percentage }}%)</p>
+        <p class="muted">{{ summary.highest.student_name }} &middot; {{ summary.highest.course_name }} &middot; {{ summary.highest.topic }}</p>
+      </div>
+      <div class="card">
+        <h3 class="small-heading">Lowest score</h3>
+        <p class="big-line">{{ summary.lowest.score }} / {{ summary.lowest.total }} ({{ summary.lowest.percentage }}%)</p>
+        <p class="muted">{{ summary.lowest.student_name }} &middot; {{ summary.lowest.course_name }} &middot; {{ summary.lowest.topic }}</p>
+      </div>
+    </div>
+
+    <h2 class="section-title left">Charts</h2>
+    <div class="grid grid-2 charts">
+      {% if charts.course %}
+      <figure class="card chart"><img src="{{ url_for('static', filename='images/charts/' ~ charts.course) }}?v={{ version }}" alt="Bar chart of the average percentage for each course"><figcaption>Course-wise average score</figcaption></figure>
+      {% endif %}
+      {% if charts.student %}
+      <figure class="card chart"><img src="{{ url_for('static', filename='images/charts/' ~ charts.student) }}?v={{ version }}" alt="Bar chart comparing the average percentage of each student"><figcaption>Student score comparison</figcaption></figure>
+      {% endif %}
+      {% if charts.topic %}
+      <figure class="card chart"><img src="{{ url_for('static', filename='images/charts/' ~ charts.topic) }}?v={{ version }}" alt="Bar chart of the average percentage for each topic"><figcaption>Topic-wise performance</figcaption></figure>
+      {% endif %}
+      {% if charts.progress %}
+      <figure class="card chart"><img src="{{ url_for('static', filename='images/charts/' ~ charts.progress) }}?v={{ version }}" alt="Line chart of percentage scores across repeated attempts"><figcaption>Score progress across attempts</figcaption></figure>
+      {% endif %}
+    </div>
+
+    <h2 class="section-title left">Student-wise performance</h2>
+    <div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Student ID</th><th>Name</th><th>Attempts</th><th>Average</th><th>Best</th><th>Lowest</th><th>Level</th></tr></thead>
+      <tbody>{% for s in students %}
+        <tr><td>{{ s.student_id }}</td><td>{{ s.student_name }}</td><td>{{ s.attempts }}</td><td>{{ s.average_percentage }}%</td><td>{{ s.best_percentage }}%</td><td>{{ s.lowest_percentage }}%</td><td>{{ s.level }}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+
+    <h2 class="section-title left">Course-wise average marks</h2>
+    <div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Course</th><th>Attempts</th><th>Average score</th><th>Average percentage</th></tr></thead>
+      <tbody>{% for c in course_rows %}
+        <tr><td>{{ c.course_name }}</td><td>{{ c.attempts }}</td><td>{{ c.average_score }}</td><td>{{ c.average_percentage }}%</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+
+    <h2 class="section-title left">Topic-wise performance</h2>
+    <div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Course</th><th>Topic</th><th>Attempts</th><th>Average percentage</th><th>Level</th></tr></thead>
+      <tbody>{% for t in topic_rows %}
+        <tr><td>{{ t.course_name }}</td><td>{{ t.topic }}</td><td>{{ t.attempts }}</td><td>{{ t.average_percentage }}%</td><td>{{ t.level }}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+
+    <h2 class="section-title left">Score changes across attempts</h2>
+    <p class="muted">Compares the first and latest attempt of the same student on the same topic.</p>
+    {% if changes %}
+    <div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Student</th><th>Course</th><th>Topic</th><th>Attempts</th><th>First</th><th>Latest</th><th>Change</th></tr></thead>
+      <tbody>{% for c in changes %}
+        <tr><td>{{ c.student_name }}</td><td>{{ c.course_name }}</td><td>{{ c.topic }}</td><td>{{ c.attempts }}</td>
+            <td>{{ c.first_percentage }}%</td><td>{{ c.latest_percentage }}%</td>
+            <td><span class="badge {{ 'badge-strong' if c.change > 0 else ('badge-practice' if c.change < 0 else 'badge-developing') }}">{{ '%+.1f'|format(c.change) }} points &middot; {{ c.trend }}</span></td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+    {% else %}
+    <div class="empty-state small"><p>No comparable attempts yet. Take the same quiz topic twice to see how your score changes.</p></div>
+    {% endif %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

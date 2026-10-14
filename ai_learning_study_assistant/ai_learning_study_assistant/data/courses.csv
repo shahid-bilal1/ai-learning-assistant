@@ -1,0 +1,4 @@
+course_id,course_name,description,topics
+1,Python Programming,"Learn the core building blocks of Python: data types, decisions, loops and functions.",Variables and Data Types;Loops and Conditions;Functions
+2,Data Analysis with Python,"Work with numbers and tables using NumPy and Pandas, then draw charts with Matplotlib and Seaborn.",NumPy Basics;Pandas Basics;Data Visualization
+3,Web Basics,Understand how simple web pages are built with HTML and styled with CSS.,HTML Basics;CSS Basics
